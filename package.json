@@ -1,0 +1,17 @@
+{
+  "name": "graphs-api",
+  "version": "1.0.0",
+  "description": "This is a graph api written in Typescript inspired from the Algorithms (Part II) course in Coursera. The original api is written in Java, but I've converted that to Typescript for my purposes.",
+  "main": "graph.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.4.9",
+    "typescript": "^5.1.6"
+  }
+}
