@@ -25,9 +25,9 @@
     // "moduleDetection": "auto",                        /* Control what method is used to detect module-format JS files. */
 
     /* Modules */
-    "module": "ES2020",                                /* Specify what module code is generated. "NodeNext" works with a package.json that has type set to module*/
+    "module": "CommonJS",                                /* Specify what module code is generated. "NodeNext" works with a package.json that has type set to module*/
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
-    "moduleResolution": "Node",                          /* Specify how TypeScript looks up a file from a given module specifier, that we import. Where will it find it. */
+    "moduleResolution": "node",                          /* Specify how TypeScript looks up a file from a given module specifier, that we import. Where will it find it. */
     // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
     // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
