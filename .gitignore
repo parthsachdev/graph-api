@@ -3,3 +3,7 @@ output
 
 # node related
 node_modules
+
+Resources
+
+.DS_Store
