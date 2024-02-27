@@ -6,3 +6,6 @@ The original api is written in Java, but I've converted that to Typescript for m
 ## Versions
 * node===v18.16.0
 
+## Questions
+1. What is the order of growth of the memory used to represent a graph with VV vertices and EE edges using the adjacency-lists representation?  
+Ans: `E + V`

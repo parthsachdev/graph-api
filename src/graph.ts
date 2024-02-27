@@ -1,3 +1,5 @@
+import assert from 'assert';
+
 /**
  * InputStream
  */
@@ -9,9 +11,9 @@ export class In extends String { }
  */
 export class Graph {
 
-	private readonly _V: number;
-	private readonly _E: number;
-	private adjMatrix: Set<number | null>[];
+	private readonly _V: number; // no of vertices cannot be changed
+	private _E: number;
+	private adjList: Set<number>[];
 
 	/**
 	 * Create an empty graph with V vertices OR
@@ -19,30 +21,38 @@ export class Graph {
 	 * @param VOrIn V: no of vertices or Input Stream
 	 */
 	public constructor(VOrIn: number | In) {
+		let edges: string[];
+		this._E = 0;
 		if (typeof VOrIn === 'number') {
 			this._V = VOrIn;
-			this._E = 0;
-			this.adjMatrix = Array.from(Array<Set<number>>(this.V), () => new Set());
+			edges = [];
 		} else if (VOrIn instanceof In) {
 			const lines = VOrIn.split('\n');
 			this._V = Number(lines[0]);
-			this._E = Number(lines[1]);
-			this.adjMatrix = Array.from(Array<Set<number>>(this.V), () => new Set());
-			lines.slice(2).forEach((l, i) => {
-				const [v1, v2] = l.split(' ');
-				this.addEdge(+v1, +v2);
-				this.addEdge(+v2, +v1);
-			});
+			const edgeCount = Number(lines[1]);
+			edges = lines.slice(2);
+			assert(edgeCount === edges.length, new Error('Invalid format: edges and edgeCount dont match'));
 		} else {
 			throw new Error('Invalid Input');
 		}
+		this.adjList = Array.from(Array<Set<number>>(this.V), () => new Set());
+		edges.forEach(l => {
+			const [v1, v2] = l.split(' ');
+			this.addEdge(+v1, +v2);
+		});
 	}
 
 	/**
 	 * add an edge v-w
+	 * when removing private, make sure that the defn of `get V()` and `get E()`
+	 * is calcuated from the `adjList` and not stored anywhere
 	 */
 	addEdge(v: number, w: number): void {
-		this.adjMatrix[v].add(w);
+		if (!this.adjList[v].has(w) && !this.adjList[w].has(v)) {
+			this._E++;
+		}
+		this.adjList[v].add(w);
+		this.adjList[w].add(v);
 	}
 
 	/**
@@ -51,7 +61,7 @@ export class Graph {
 	 * @returns vertices adjacent to v
 	 */
 	adj(v: number): number[] {
-		return [];
+		return Array.from(this.adjList[v]);
 	}
 
 	/**
@@ -72,7 +82,7 @@ export class Graph {
 	toString(): String {
 		let str = `#Vertices: ${this.V}\n` + `#Edges: ${this.E}\n`;
 		for (let i=0; i<this.V; i++) {
-			str += `${i} -> ${Array.from(this.adjMatrix[i])}\n`;
+			str += `${i} -> ${Array.from(this.adjList[i])}\n`;
 		}
 		return str;
 	}
@@ -109,7 +119,7 @@ export class Graph {
 				}
 			}
 		}
-		return count / 2;
+		return count;
 	}
 
 }
