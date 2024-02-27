@@ -5,4 +5,4 @@ import * as fs from 'fs';
 const ins: In = new In(fs.readFileSync(__dirname + '/examples/tinyG.txt', 'utf-8'));
 const graph: Graph = new Graph(ins);
 
-console.log(graph);
+console.log(graph.toString());

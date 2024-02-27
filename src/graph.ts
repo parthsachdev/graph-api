@@ -22,28 +22,28 @@ export class Graph {
 		if (typeof VOrIn === 'number') {
 			this._V = VOrIn;
 			this._E = 0;
+			this.adjMatrix = Array.from(Array<Set<number>>(this.V), () => new Set());
 		} else if (VOrIn instanceof In) {
 			const lines = VOrIn.split('\n');
 			this._V = Number(lines[0]);
 			this._E = Number(lines[1]);
-			lines.slice(2).forEach(l => {
+			this.adjMatrix = Array.from(Array<Set<number>>(this.V), () => new Set());
+			lines.slice(2).forEach((l, i) => {
 				const [v1, v2] = l.split(' ');
-				this.addEdge(Number(v1), Number(v2));
+				this.addEdge(+v1, +v2);
+				this.addEdge(+v2, +v1);
 			});
-			console.log(this._E);
 		} else {
 			throw new Error('Invalid Input');
-		}
-		this.adjMatrix = new Array<Set<number | null>>(this.V);
-		for (let i=0; i<this.V; i++) {
-			this.adjMatrix[i] = new Set<number>();
 		}
 	}
 
 	/**
 	 * add an edge v-w
 	 */
-	addEdge(v: number, w: number): void {}
+	addEdge(v: number, w: number): void {
+		this.adjMatrix[v].add(w);
+	}
 
 	/**
 	 *
@@ -70,7 +70,11 @@ export class Graph {
 
 	/** string representation */
 	toString(): String {
-		return '';
+		let str = `#Vertices: ${this.V}\n` + `#Edges: ${this.E}\n`;
+		for (let i=0; i<this.V; i++) {
+			str += `${i} -> ${Array.from(this.adjMatrix[i])}\n`;
+		}
+		return str;
 	}
 
 	/** compute the degree of v */
