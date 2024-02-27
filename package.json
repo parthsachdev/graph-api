@@ -5,7 +5,7 @@
   "main": "graph.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/typescript/bin/tsc",
+    "build": "./node_modules/typescript/bin/tsc && cp -r src/examples output",
     "start": "node ./output/index.js",
     "serve": "npm run build && npm run start"
   },

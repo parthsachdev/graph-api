@@ -10,6 +10,7 @@ export class In extends String { }
 export class Graph {
 
 	private readonly _V: number;
+	private readonly _E: number;
 	private adjMatrix: Set<number | null>[];
 
 	/**
@@ -20,8 +21,16 @@ export class Graph {
 	public constructor(VOrIn: number | In) {
 		if (typeof VOrIn === 'number') {
 			this._V = VOrIn;
+			this._E = 0;
 		} else if (VOrIn instanceof In) {
-			this._V = Number(VOrIn.split('\n').at(0));
+			const lines = VOrIn.split('\n');
+			this._V = Number(lines[0]);
+			this._E = Number(lines[1]);
+			lines.slice(2).forEach(l => {
+				const [v1, v2] = l.split(' ');
+				this.addEdge(Number(v1), Number(v2));
+			});
+			console.log(this._E);
 		} else {
 			throw new Error('Invalid Input');
 		}
@@ -55,8 +64,8 @@ export class Graph {
 	/**
 	 * @returns no of edges
 	 */
-	E(): number {
-		return 0;
+	get E(): number {
+		return this._E;
 	}
 
 	/** string representation */
@@ -83,7 +92,7 @@ export class Graph {
 
 	/** compute averageDegree */
 	static averageDegree(G: Graph): number {
-		return 2.0 * G.E() / G.V;
+		return 2.0 * G.E / G.V;
 	}
 
 	/** conut the number of self loops */
