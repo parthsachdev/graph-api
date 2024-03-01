@@ -1,5 +1,6 @@
 import {Graph, In} from './graph';
 import * as fs from 'fs';
+import { DepthFirstPaths } from './depth_first_paths';
 
 // read graph from input stream
 const ins: In = new In(fs.readFileSync(__dirname + '/examples/tinyG.txt', 'utf-8'));
@@ -13,3 +14,10 @@ console.log({
 	averageDegree: Graph.averageDegree(graph),
 	numberOfSelfLoops: Graph.numberOfSelfLoops(graph)
 });
+
+
+const source = 0;
+console.log(`-------Depth First Search---------`);
+const dfs = new DepthFirstPaths(graph, source);
+dfs.printDS();
+console.log(`path to 4: ${dfs.pathTo(4)}`);

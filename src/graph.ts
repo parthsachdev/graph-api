@@ -11,7 +11,7 @@ export class In extends String { }
  */
 export class Graph {
 
-	private readonly _V: number; // no of vertices cannot be changed
+	private readonly _V: number; // readonly means no of vertices cannot be changed
 	private _E: number;
 	private adjList: Set<number>[];
 
