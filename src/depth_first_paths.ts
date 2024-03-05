@@ -6,12 +6,12 @@ import { NumberNull } from "./types";
 export class DepthFirstPaths implements Paths {
 	private marked: boolean[];
 	private edgeTo: Array<number | null>;
-	private s: number;
+	private src: number;
 
 	constructor(G: Graph, s: number) {
 		this.marked = Array.from(Array<boolean>(G.V), () => false);
 		this.edgeTo = Array.from(Array<NumberNull>(G.V), () => null);
-		this.s = s;
+		this.src = s;
 		this.dfs(G, s);
 	}
 
@@ -19,8 +19,8 @@ export class DepthFirstPaths implements Paths {
 		this.marked[v] = true;
 		for (const w of G.adj(v)) {
 			if (!this.marked[w]) {
-				this.dfs(G, w);
 				this.edgeTo[w] = v;
+				this.dfs(G, w);
 			}
 		}
 	}
@@ -29,20 +29,19 @@ export class DepthFirstPaths implements Paths {
 		return this.marked[v];
 	}
 
-	pathTo(v: number): NumberNull[] | null {
-		if (!this.hasPathTo(v)) {
+	pathTo(dest: number): NumberNull[] | null {
+		if (!this.hasPathTo(dest)) {
 			return null;
 		}
 		const path: Stack<NumberNull> = new Stack<NumberNull>();
-		for (let x: NumberNull = v; x != this.s; x = this.edgeTo[v]) {
+		for (let x: NumberNull = dest; x !== this.src && x !== null; x = typeof x === 'number' ? this.edgeTo[x] : null) {
 			path.push(x);
 		}
-		path.push(this.s);
+		path.push(this.src);
 		return path.toArray();
-
 	}
 
 	printDS() {
-		console.log({marked: JSON.stringify(this.marked), edgeTo: JSON.stringify(this.edgeTo)});
+		console.table(Array(this.marked.length).fill(0).map((_, i) => ({marked: this.marked[i], edgeTo: this.edgeTo[i]})));
 	}
 }

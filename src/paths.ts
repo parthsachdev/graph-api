@@ -6,8 +6,7 @@ import { NumberNull } from "./types";
  * We provide a graph and a source as input
  * and extract information from it
  */
-export abstract class Paths {
-	constructor(G: Graph, v: number) {}
-	abstract hasPathTo(v: number): boolean;
-	abstract pathTo(v: number): NumberNull[] | null;
+export interface Paths {
+	hasPathTo(v: number): boolean;
+	pathTo(v: number): NumberNull[] | null;
 }

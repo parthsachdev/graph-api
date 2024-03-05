@@ -20,4 +20,4 @@ const source = 0;
 console.log(`-------Depth First Search---------`);
 const dfs = new DepthFirstPaths(graph, source);
 dfs.printDS();
-console.log(`path to 4: ${dfs.pathTo(4)}`);
+console.table(Array(graph.V).fill(0).map((_, i) => ({hasPathTo: dfs.hasPathTo(i), pathTo: dfs.pathTo(i)?.join(',')})));
