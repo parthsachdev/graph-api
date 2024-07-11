@@ -20,4 +20,10 @@ const source = 0;
 console.log(`-------Depth First Search---------`);
 const dfs = new DepthFirstPaths(graph, source);
 dfs.printDS();
-console.log(`path to 4: ${dfs.pathTo(4)}`);
+// console.log(`path to 4: ${dfs.pathTo(4)}`);
+
+
+console.log(`-------Breadth First Search---------`);
+const bfs = new DepthFirstPaths(graph, source);
+bfs.printDS();
+console.log(`path to 4: ${bfs.pathTo(4)}`);
