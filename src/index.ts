@@ -27,3 +27,4 @@ console.log(`-------Breadth First Search---------`);
 const bfs = new DepthFirstPaths(graph, source);
 bfs.printDS();
 console.log(`path to 4: ${bfs.pathTo(4)}`);
+console.table(Array(graph.V).fill(0).map((_, i) => ({hasPathTo: dfs.hasPathTo(i), pathTo: dfs.pathTo(i)?.join(',')})));
